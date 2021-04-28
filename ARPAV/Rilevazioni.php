@@ -5,28 +5,29 @@
     {
         $dir='sqlite:C:/Work/polveri.db';
         $dbh= new PDO($dir) or die("noooo");
-        $query="SELECT *FROM rilevazioni";
+        $query="SELECT r.codseqst,r.data,r.tipoInquinante,r.valore,s.localita FROM rilevazioni r JOIN stazioni s ON (r.codseqst=s.codseqst)";
 
-        $stmt = $dbh->prepare( $query );
+        $stmt = $dbh->prepare($query);
         $stmt->execute();
 
         echo "<table class=\"tab\">";
             echo "<thead>";
-                echo "<th>Codice</th>";
+                //echo "<th>Codice</th>";
                 echo "<th>Data</th>";
                 echo "<th>Tipo Inquinante</th>";
                 echo "<th>Valore</th>";
+                echo "<th>Località</th>";
                 
             echo "</thead>";
 
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                 echo "<tr>";
-                    echo "<td>".$row['codseqst']."</td>";
+                    //echo "<td>".$row['codseqst']."</td>";
                     echo "<td>".$row['data']."</td>";
                     echo "<td>".$row['tipoInquinante']."</td>";
-                     echo "<td>".$row['valore']."</td>";
-                   
+                    echo "<td>".$row['valore']."</td>";
+                    echo "<td>".$row['localita']."</td>";
                 echo "</tr>";
             }
         echo "</table>";
@@ -69,6 +70,8 @@
     <h1> Rilevazioni</h1>
     <div id="table">
         <?php genTable() ?>
+        
+        
     </div>
     
 </body>
