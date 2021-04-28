@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Grafico PM2.5</title>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+<div id="container" style="width: 700px; height: 600px; margin: 0 auto"></div>
+<script language="JavaScript">
+$(document).ready(function() {  
+   var chart = {
+      type: 'column'
+   };
+   var title = {
+      text: 'PM2.5'   
+   };    
+   var xAxis = {
+      categories: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']
+   };
+   var yAxis ={
+      min: 0,
+      title: {
+        text: 'Letture'
+      },
+      stackLabels: {
+        enabled: true,
+        style: {
+           fontWeight: 'bold',
+           color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+        }
+      }
+   };
+   var legend = {
+      align: 'right',
+      x: -30,
+      verticalAlign: 'top',
+      y: 25,
+      floating: true,
+      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+      borderColor: '#CCC',
+      borderWidth: 1,
+      shadow: false
+   };   
+   var tooltip = {
+      formatter: function () {
+         return '<b>' + this.x + '</b><br/>' +
+            this.series.name + ': ' + this.y + '<br/>' +
+            'Total: ' + this.point.stackTotal;
+      }
+   };
+   var plotOptions = {
+      column: {
+         stacking: 'normal',
+         dataLabels: {
+            enabled: true,
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+            style: {
+               textShadow: '0 0 3px black'
+            }
+         }
+      }
+   };
+   var credits = {
+      enabled: false
+   };
+   var series= [{
+        name: '2019',
+            data: [35.48, 36.85, 25.70, 12.06, 7.87, 13.46, 16.58, 16.06, 12.1, 17.16, 10.96, 23.25]
+        }, {
+            name: '2020',
+            data: [42.58, 36.24, 17.38, 16.3, 7.58, 8.2, 12.45, 12.35, 13.86, 17.03, 33.76, 26.93]
+        }];     
+      
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;   
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.legend = legend;
+   json.tooltip = tooltip;
+   json.plotOptions = plotOptions;
+   json.credits = credits;
+   json.series = series;
+   $('#container').highcharts(json);
+  
+});
+</script>
+</body>
+</html>
